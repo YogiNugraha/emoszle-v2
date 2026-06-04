@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.hintBtn?.addEventListener("click", () => {
         const result = game.giveHint();
         if (result && result.piece && result.target) {
-            ttsCtrl.speak("Petunjuk aktif. Pasangkan potongan yang menyala hijau ke kotak yang bergaris kuning.");
+            ttsCtrl.speak("Petunjuk aktif. Pasangkan potongan yang menyala hijau ke kotak yang berkedip kuning.");
         } else if (result === false) {
             ttsCtrl.speak("Semua potongan sudah benar!");
         }
