@@ -214,12 +214,14 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => ttsCtrl.speak("Selamat datang di E-Moszle! Silakan pilih permainanmu."), 200);
         
         // Clean up listeners
-        document.removeEventListener("click", unlockAudio);
-        document.removeEventListener("touchstart", unlockAudio);
+        ['click', 'touchstart', 'mousedown', 'keydown'].forEach(e => {
+            document.removeEventListener(e, unlockAudio, { capture: true });
+        });
     };
 
-    document.addEventListener("click", unlockAudio, { once: true, capture: true });
-    document.addEventListener("touchstart", unlockAudio, { once: true, capture: true });
+    ['click', 'touchstart', 'mousedown', 'keydown'].forEach(e => {
+        document.addEventListener(e, unlockAudio, { once: true, capture: true });
+    });
 
     // Run init
     init();

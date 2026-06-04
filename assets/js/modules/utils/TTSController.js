@@ -56,9 +56,29 @@ export class TTSController {
         utterance.rate = 1;
         utterance.volume = 0.9;
         
+        // Fallback timer in case onend never fires (e.g. browser blocks it)
+        const estimatedDuration = Math.max(3000, text.length * 100);
+        const fallbackTimer = setTimeout(() => {
+            this.isSpeaking = false;
+            this.hideToast();
+            if (this.audioController) {
+                this.audioController.restoreMusic();
+            }
+        }, estimatedDuration);
+        
         utterance.onend = () => {
+            clearTimeout(fallbackTimer);
             this.isSpeaking = false;
             this.toastTimeout = setTimeout(() => this.hideToast(), 500); // Wait a bit before hiding
+            if (this.audioController) {
+                this.audioController.restoreMusic();
+            }
+        };
+
+        utterance.onerror = () => {
+            clearTimeout(fallbackTimer);
+            this.isSpeaking = false;
+            this.hideToast();
             if (this.audioController) {
                 this.audioController.restoreMusic();
             }
