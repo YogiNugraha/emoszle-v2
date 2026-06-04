@@ -23,8 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalMoves: document.getElementById("final-moves"),
         playAgainBtn: document.getElementById("play-again-btn"),
         muteBtn: document.getElementById("mute-btn"),
-        backBtn: document.getElementById("back-btn"),
-        currentYear: document.getElementById("current-year")
+        backBtn: document.getElementById("back-btn")
     };
 
     // Initialize Utilities
@@ -108,6 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const setupGameDebounced = debounce(setupGame, 150);
     elements.difficultySelect?.addEventListener("change", setupGameDebounced);
     elements.imageSelect?.addEventListener("change", setupGameDebounced);
+    
+    // Recalculate board sizes on window resize
+    window.addEventListener("resize", setupGameDebounced);
 
     // Setup TTS Hover events
     const say = debounce(ttsCtrl.speak.bind(ttsCtrl), 300);

@@ -1,226 +1,409 @@
 /* File: assets/css/pages/puzzle.css */
 
-/* Toolbar */
-.toolbar {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: var(--gap);
-  align-items: end;
-  margin: 18px 0;
-}
-.control-group {
-  display: grid;
-  gap: 6px;
-}
-.control-group label {
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-.select-wrap {
-  position: relative;
-}
-.select-wrap::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--muted-color);
-}
-
-/* Stats */
-.stats {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  gap: clamp(10px, 4vw, 30px);
-  font-weight: 800;
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-  margin: 8px 0 18px;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 10px 14px;
-  border-radius: 999px;
-}
-.stat {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-}
-.stat-label {
-  color: var(--muted-color);
-}
-
-/* Stage */
-.game-stage {
-  display: grid;
-  gap: clamp(12px, 2vw, 20px);
-  grid-template-columns: minmax(260px, 360px) minmax(320px, 1fr) minmax(260px, 360px);
-  align-items: start;
-}
-.card-title {
-  margin: 0 0 10px;
-  font-size: 1.05rem;
-  font-weight: 900;
-  color: var(--primary-color);
-}
-
-/* Pieces panel */
-#piece-container.pieces {
-  width: 100%;
-  min-height: 240px;
+/* Reset for App-Like Experience */
+html, body {
+  overflow: hidden; /* Prevent body scrolling on puzzle page */
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color, #fff8e1);
   display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Hide footer on small screens to maximize game area */
+@media (max-width: 1024px) {
+  #site-footer {
+    display: none !important;
+  }
+}
+
+/* Custom Header for Puzzle */
+.puzzle-header {
+  background: var(--primary-color) !important; /* Make it pop like a game HUD */
+  border-bottom: none !important;
+  padding: 10px 0 !important;
+  width: 100%;
+}
+
+.puzzle-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 12px;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.75);
-  border: 3px dashed var(--primary-color);
-  transition: background-color 0.3s, border-color 0.3s;
+  gap: 12px;
 }
 
-/* Board container */
-.board-scroll {
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.6);
-  border: 2px dashed var(--primary-color);
-  max-width: 100%;
+.puzzle-header .logo a {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+  color: white;
+  font-weight: 900;
+  font-size: 1.1rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-stat i {
+  font-size: 1.2rem;
+  color: var(--warning-color, #ffc107);
+}
+
+@media (max-width: 768px) {
+  .puzzle-header-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .header-stats {
+    gap: 16px;
+    font-size: 1rem;
+    padding: 6px 16px;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .header-stat {
+    flex-direction: row; /* Keep icon and text side-by-side */
+    gap: 4px;
+    font-size: 0.95rem;
+  }
+  .header-stat i {
+    font-size: 1rem;
+  }
+}
+
+/* Game Layout */
+.game-layout {
+  display: grid;
+  flex: 1; /* Takes up all remaining height after header */
+  min-height: 0; /* Prevents overflow */
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* --- Desktop Layout --- */
+@media (min-width: 1025px) {
+  .game-layout {
+    grid-template-columns: 320px 1fr;
+    grid-template-areas: "sidebar core";
+    align-items: stretch;
+  }
+}
+
+/* --- Mobile Layout --- */
+@media (max-width: 1024px) {
+  .game-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "sidebar"
+      "core";
+    padding: 8px;
+    gap: 8px;
+  }
+}
+
+/* Sidebar Area */
+.game-sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 4px;
+  min-width: 0; /* Prevent grid blowout */
+}
+
+@media (max-width: 1024px) {
+  .game-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-y: visible;
+    gap: 8px;
+  }
+}
+
+/* Core Game Area */
+.game-core {
+  grid-area: core;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0; /* Important for flex children to shrink */
+  min-width: 0; /* Prevent grid blowout */
   position: relative;
+  background: white;
+  border-radius: var(--radius-lg, 20px);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
-/* BOARD GRID */
+@media (max-width: 1024px) {
+  .game-core {
+    gap: 8px;
+    padding: 8px;
+  }
+}
+
+/* --- Components --- */
+
+/* Toolbar / Controls */
+.toolbar {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  border-radius: var(--radius, 14px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  #back-btn {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .toolbar-actions {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    margin-top: 0;
+  }
+  
+  /* Selectors group */
+  .toolbar > .control-group:nth-of-type(1) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+  .toolbar > .control-group:nth-of-type(2) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+}
+
+.control-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--muted-color);
+}
+@media (max-width: 1024px) {
+  .control-group label { display: none; /* Save space on mobile */ }
+}
+
+.select-wrap select {
+  width: 100%;
+  font-size: 14px;
+  padding: 8px 16px;
+  min-height: 38px;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+@media (max-width: 1024px) {
+  .toolbar-actions {
+    margin-top: 0;
+  }
+}
+
+/* Reference Card */
+.reference-card {
+  padding: 12px;
+  text-align: center;
+}
+.reference-card img {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid var(--border-color);
+}
+@media (max-width: 1024px) {
+  .reference-card {
+    display: none; /* Hide reference image by default on mobile to save space */
+  }
+}
+
+/* --- Cards General --- */
+.card-title {
+  font-size: 1rem;
+  font-weight: 900;
+  margin: 0 0 12px 0;
+  color: var(--primary-color);
+  text-align: center;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Board Card */
+.board-card {
+  flex: 1; /* Takes up remaining height */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+.board-scroll {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto; /* Allow panning if board is huge */
+  touch-action: none; /* Prevent scroll on touch while dragging */
+  height: 100%;
+  min-width: 0;
+}
+
 #board {
   display: grid;
-  position: relative;
+  gap: 1px;
+  background-color: var(--border-color);
+  border: 3px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   overflow: hidden;
-  border-radius: 20px;
-  gap: 0;
-  isolation: isolate;
-}
-#board::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--current-puzzle-image);
-  background-size: 100% 100%;
-  background-position: center;
-  opacity: 0.18;
-  z-index: 0;
-  border-radius: inherit;
-  pointer-events: none;
+  margin: auto;
 }
 
-/* Slots & pieces */
 .slot {
+  background-color: rgba(255, 255, 255, 0.8);
   position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  border: 1px dashed var(--border-color);
-  border-radius: 0;
-  background: rgba(255, 255, 255, 0.35);
 }
-.slot.edge-top { border-top-color: transparent; }
-.slot.edge-right { border-right-color: transparent; }
-.slot.edge-bottom { border-bottom-color: transparent; }
-.slot.edge-left { border-left-color: transparent; }
+.slot.drag-over {
+  background-color: rgba(32, 201, 151, 0.2);
+  outline: 3px dashed var(--primary-color);
+  outline-offset: -3px;
+}
 
-.drag-over {
-  background: #c8e6c9 !important;
-  outline: 3px solid var(--accent-color);
-  border-radius: 10px;
+/* Piece Card / Tray */
+.piece-card {
+  height: clamp(140px, 20vh, 200px); /* Flexible height based on screen size */
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(0,0,0,0.05); /* Separator */
+  padding-top: 12px;
+}
+@media (max-width: 1024px) {
+  .piece-card {
+    height: 120px;
+    padding-top: 8px;
+  }
+}
+
+.pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  height: 100%;
+  overflow-y: auto;
+  align-content: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .pieces {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: center;
+    padding-bottom: 8px; /* For scrollbar */
+  }
 }
 
 .piece {
-  border-radius: 4px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
-  touch-action: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: white;
+  touch-action: none; /* Critical for dragging on mobile */
+  flex-shrink: 0;
+  width: var(--piece-w) !important;
+  height: var(--piece-h) !important;
+}
+
+.pieces .piece {
+  /* Scale down pieces only while they are in the tray */
+  width: calc(var(--piece-w) * 0.7) !important;
+  height: calc(var(--piece-h) * 0.7) !important;
+}
+@media (max-width: 1024px) {
+  .pieces .piece {
+    width: calc(var(--piece-w) * 0.55) !important;
+    height: calc(var(--piece-h) * 0.55) !important;
+  }
+}
+.piece:active {
+  cursor: grabbing;
+}
+.piece:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  z-index: 2;
 }
 .piece.dragging {
-  transform: scale(1.04);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  z-index: 100;
+  /* Snap to full size when dragging */
+  width: var(--piece-w) !important;
+  height: var(--piece-h) !important;
 }
 
-/* Reference */
-#reference-container {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+/* Hint Button */
+#hint-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
 }
-#reference-image {
-  width: 100% !important;
-  height: auto !important;
-  display: block;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* Hint glow */
-.piece.hint-glow {
-  animation: glow 1.2s ease-in-out;
-  cursor: default;
-}
-@keyframes glow {
-  0% { box-shadow: 0 0 5px rgba(255, 193, 7, 0); }
-  50% { box-shadow: 0 0 20px 10px rgba(255, 193, 7, 0.8); }
-  100% { box-shadow: 0 0 5px rgba(255, 193, 7, 0); }
-}
-
-/* Responsive */
 @media (max-width: 1024px) {
-  .toolbar {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
-  }
-  .toolbar .toolbar-actions {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: var(--gap);
-  }
-  .game-stage {
-    grid-template-columns: 1fr;
+  #hint-btn {
+    bottom: calc(120px + 24px); /* Above the pieces tray */
+    right: 12px;
   }
 }
 
-@media (max-width: 600px) {
-  .toolbar {
-    grid-template-columns: 1fr !important;
-    justify-items: center;
-    align-items: center;
-    text-align: center;
-    row-gap: 12px;
-  }
-  .control-group,
-  .toolbar .toolbar-actions {
-    width: 100%;
-    max-width: 420px;
-  }
-  .control-group label {
-    text-align: center;
-  }
-  .select-wrap,
-  .select-wrap select {
-    width: 100%;
-  }
-  .toolbar .toolbar-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 12px;
-    justify-items: center;
-  }
-  .toolbar .toolbar-actions .btn {
-    width: 100%;
-    min-width: 0;
-  }
-  .stats {
-    justify-content: center;
-    margin-top: 8px;
-    grid-auto-flow: row;
-    grid-template-columns: 1fr;
-    gap: 6px;
-    border-radius: 14px;
-    padding: 10px 12px;
-  }
+/* Edge Styles for Slots */
+.edge-top { border-top: 1px solid rgba(0,0,0,0.05); }
+.edge-bottom { border-bottom: 1px solid rgba(0,0,0,0.05); }
+.edge-left { border-left: 1px solid rgba(0,0,0,0.05); }
+.edge-right { border-right: 1px solid rgba(0,0,0,0.05); }
+
+/* Win Modal Adjustments */
+#win-modal {
+  z-index: 9999;
 }

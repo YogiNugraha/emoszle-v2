@@ -47,7 +47,7 @@ export class PuzzleGame extends Game {
         this.board.innerHTML = "";
         this.pieceContainer.innerHTML = "";
 
-        const slotSize = this.getResponsiveSlotSize(this.cols);
+        const slotSize = this.getResponsiveSlotSize(this.rows, this.cols);
         const pieceSize = slotSize - 1.5;
         const boardWidth = slotSize * this.cols;
         const boardHeight = slotSize * this.rows;
@@ -69,14 +69,25 @@ export class PuzzleGame extends Game {
         this.bindListenersOnce();
     }
 
-    getResponsiveSlotSize(cols) {
+    getResponsiveSlotSize(rows, cols) {
         const scroller = document.querySelector(".board-scroll");
         if (!scroller) return 80;
+        
         const cs = getComputedStyle(scroller);
-        const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-        const available = scroller.getBoundingClientRect().width - padX;
-        const size = Math.floor(available / cols);
-        return Math.max(56, Math.min(160, size));
+        const padX = parseFloat(cs.paddingLeft || 0) + parseFloat(cs.paddingRight || 0);
+        const padY = parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0);
+        
+        // Add 10px breathing room
+        const availableW = scroller.getBoundingClientRect().width - padX - 10;
+        const availableH = scroller.getBoundingClientRect().height - padY - 10;
+        
+        // Calculate max size that fits BOTH width and height constraints
+        const sizeW = Math.floor(availableW / cols);
+        const sizeH = Math.floor(availableH / rows);
+        
+        // The slot size is the minimum of width fit and height fit
+        let size = Math.min(sizeW, sizeH);
+        return Math.max(40, size);
     }
 
     createSlots(rows, cols) {
@@ -97,8 +108,6 @@ export class PuzzleGame extends Game {
 
     createPieces(boardWidth, boardHeight, pieceSize) {
         const frag = document.createDocumentFragment();
-        const slotW = boardWidth / this.cols;
-        const slotH = boardHeight / this.rows;
 
         const pieces = [];
         for (let i = 0; i < this.rows * this.cols; i++) {
@@ -106,13 +115,20 @@ export class PuzzleGame extends Game {
             piece.className = "piece";
             piece.draggable = true;
             piece.dataset.index = String(i);
-            const x = (i % this.cols) * slotW;
-            const y = Math.floor(i / this.cols) * slotH;
-            piece.style.cssText = `
-                width:${pieceSize}px; height:${pieceSize}px;
-                background-image:url(${this.imageSrc});
-                background-size:${boardWidth}px ${boardHeight}px;
-                background-position:-${x}px -${y}px;`;
+            
+            const c = i % this.cols;
+            const r = Math.floor(i / this.cols);
+            const xPct = this.cols > 1 ? (c / (this.cols - 1)) * 100 : 0;
+            const yPct = this.rows > 1 ? (r / (this.rows - 1)) * 100 : 0;
+
+            piece.style.setProperty('--piece-w', `${pieceSize}px`);
+            piece.style.setProperty('--piece-h', `${pieceSize}px`);
+            piece.style.width = 'var(--piece-w)';
+            piece.style.height = 'var(--piece-h)';
+            piece.style.backgroundImage = `url(${this.imageSrc})`;
+            piece.style.backgroundSize = `${this.cols * 100}% ${this.rows * 100}%`;
+            piece.style.backgroundPosition = `${xPct}% ${yPct}%`;
+            
             pieces.push(piece);
         }
         
