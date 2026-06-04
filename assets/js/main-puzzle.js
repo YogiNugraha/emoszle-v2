@@ -140,8 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     elements.hintBtn?.addEventListener("click", () => {
         const result = game.giveHint();
-        if (result && result.obstructMoved) {
-            ttsCtrl.speak("Memindahkan potongan penghalang.");
+        if (result && result.piece && result.target) {
+            ttsCtrl.speak("Petunjuk aktif. Pasangkan potongan yang menyala hijau ke kotak yang bergaris kuning.");
         } else if (result === false) {
             ttsCtrl.speak("Semua potongan sudah benar!");
         }

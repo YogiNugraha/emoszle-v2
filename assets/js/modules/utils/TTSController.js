@@ -13,6 +13,28 @@ export class TTSController {
         }
     }
 
+    showToast(text) {
+        let toast = document.getElementById("tts-toast");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "tts-toast";
+            document.body.appendChild(toast);
+        }
+        toast.textContent = text;
+        toast.classList.add("show");
+        
+        if (this.toastTimeout) {
+            clearTimeout(this.toastTimeout);
+        }
+    }
+
+    hideToast() {
+        const toast = document.getElementById("tts-toast");
+        if (toast) {
+            toast.classList.remove("show");
+        }
+    }
+
     speak(text) {
         if (!window.SpeechSynthesisUtterance || !text || this.isSpeaking) return;
         
@@ -21,6 +43,7 @@ export class TTSController {
         } catch (e) {}
 
         this.isSpeaking = true;
+        this.showToast(text);
         
         if (this.audioController) {
             this.audioController.duckMusic();
@@ -35,6 +58,7 @@ export class TTSController {
         
         utterance.onend = () => {
             this.isSpeaking = false;
+            this.toastTimeout = setTimeout(() => this.hideToast(), 500); // Wait a bit before hiding
             if (this.audioController) {
                 this.audioController.restoreMusic();
             }
@@ -44,6 +68,7 @@ export class TTSController {
             this.synthesizer.speak(utterance);
         } catch (e) {
             this.isSpeaking = false;
+            this.hideToast();
             if (this.audioController) {
                 this.audioController.restoreMusic();
             }

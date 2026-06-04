@@ -323,6 +323,10 @@ export class PuzzleGame extends Game {
     giveHint() {
         this.start(); // Ensure game is active before calculating hints
 
+        // Clear existing hints
+        this.pieceContainer.querySelectorAll(".hint-source").forEach(el => el.classList.remove("hint-source"));
+        this.board.querySelectorAll(".hint-target").forEach(el => el.classList.remove("hint-target"));
+
         const misplaced = [];
         this.pieceContainer.querySelectorAll(".piece").forEach((p) => misplaced.push(p));
         
@@ -341,25 +345,20 @@ export class PuzzleGame extends Game {
         
         if (!target) return false;
 
-        let obstructMoved = false;
-        if (target.children.length > 0) {
-            const obstruct = target.firstElementChild;
-            this.pieceContainer.appendChild(obstruct);
-            obstructMoved = true;
-        }
-
-        target.appendChild(piece);
-        piece.classList.add("hint-glow");
-        piece.draggable = false;
+        // Highlight the piece and target for the user
+        piece.classList.add("hint-source");
+        target.classList.add("hint-target");
         
         const currentMoves = this.incrementMove();
         if (this.moveCountDisplay) {
             this.moveCountDisplay.textContent = String(currentMoves);
         }
         
-        setTimeout(() => piece.classList.remove("hint-glow"), 1200);
-        this.checkWinCondition();
+        setTimeout(() => {
+            piece.classList.remove("hint-source");
+            target.classList.remove("hint-target");
+        }, 3000);
         
-        return { success: true, obstructMoved };
+        return { piece, target };
     }
 }
