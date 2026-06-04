@@ -91,8 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
         
         audioCtrl.playWinSound();
         
+        const elapsedSecs = timer.getTimeElapsed();
+        const mins = Math.floor(elapsedSecs / 60);
+        const secs = elapsedSecs % 60;
+        let timeSpeech = "";
+        if (mins > 0) timeSpeech += `${mins} menit `;
+        if (secs > 0 || mins === 0) timeSpeech += `${secs} detik`;
+        
         ttsCtrl.speak(
-            `Asyik, Berhasil! Kamu menyelesaikan puzzle dalam ${Timer.formatTime(timer.getTimeElapsed())}, dengan ${game.moveCount} gerakan.`
+            `Asyik, Berhasil! Kamu menyelesaikan puzzle dalam waktu ${timeSpeech}, dengan ${game.moveCount} gerakan.`
         );
         
         if (elements.finalTime) elements.finalTime.textContent = Timer.formatTime(timer.getTimeElapsed());
