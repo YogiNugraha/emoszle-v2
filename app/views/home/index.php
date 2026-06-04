@@ -27,25 +27,25 @@
       </div>
       <div class="games-grid">
         <div class="game-card">
-          <a href="puzzle/engklek-gunung" style="text-decoration: none;">
+          <a href="puzzle/engklek-gunung">
             <img src="assets/img/engklek-gunung.png" alt="Engklek Gunung">
             <h3>Engklek Gunung</h3>
           </a>
         </div>
         <div class="game-card">
-          <a href="puzzle/engklek-kapal" style="text-decoration: none;">
+          <a href="puzzle/engklek-kapal">
             <img src="assets/img/engklek-kapal.png" alt="Engklek Kapal">
             <h3>Engklek Kapal</h3>
           </a>
         </div>
         <div class="game-card">
-          <a href="puzzle/gobak-sodor" style="text-decoration: none;">
+          <a href="puzzle/gobak-sodor">
             <img src="assets/img/gobak-sodor.png" alt="Gobak Sodor">
             <h3>Gobak Sodor</h3>
           </a>
         </div>
         <div class="game-card">
-          <a href="puzzle/ular-naga" style="text-decoration: none;">
+          <a href="puzzle/ular-naga">
             <img src="assets/img/ular-naga.png" alt="Ular Naga">
             <h3>Ular Naga</h3>
           </a>
@@ -124,8 +124,8 @@
       <div class="module-text">
         <h3>Siap untuk Pengalaman Belajar Terbaik?</h3>
         <p>Unduh modul panduan lengkap kami untuk guru dan orang tua agar proses bermain dan belajar menjadi lebih terarah, efektif, dan tentunya, menyenangkan!</p>
-        <a href="https://drive.google.com/file/d/1qYgeE9GJ35h-RshPmLMMz7CbRms4wgCU/view?usp=sharing" class="btn btn-light" target="blank">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16" style="margin-right: 8px;">
+        <a href="https://drive.google.com/file/d/1qYgeE9GJ35h-RshPmLMMz7CbRms4wgCU/view?usp=sharing" class="btn btn-light" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
           </svg>

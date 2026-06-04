@@ -37,7 +37,12 @@
   </div>
 </footer>
 
-<script src="assets/js/home.js"></script>
+<script src="assets/js/layout.js"></script>
+<?php if (isset($data['js'])): ?>
+  <?php foreach ($data['js'] as $jsFile): ?>
+    <script src="assets/js/pages/<?= htmlspecialchars($jsFile, ENT_QUOTES, 'UTF-8') ?>"></script>
+  <?php endforeach; ?>
+<?php endif; ?>
 
 </body>
 

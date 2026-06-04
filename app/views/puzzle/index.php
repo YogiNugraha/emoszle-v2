@@ -12,22 +12,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/pages/puzzle.css" />
 </head>
 
 <body>
   <a class="skip-link" href="puzzle#main">Lewati ke konten utama</a>
 
-  <header class="site-header">
-    <div class="container">
-      <h1 class="brand">E‑Moszle</h1>
+  <header id="site-header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="<?= BASEURL ?>">E‑Moszle</a>
+      </div>
     </div>
   </header>
 
   <main id="main" class="site-main container">
     <!-- Toolbar / Controls -->
     <section id="controls" class="toolbar" role="toolbar" aria-label="Kontrol permainan">
-      <a href="" id="back-btn" class="btn btn-secondary" style="text-decoration: none;" aria-label="Kembali ke Halaman Utama">Kembali</a>
+      <a href="<?= BASEURL ?>" id="back-btn" class="btn btn-secondary" aria-label="Kembali ke Halaman Utama">Kembali</a>
 
       <div class="control-group">
         <label for="difficulty">Tingkat Kesulitan</label>
@@ -139,7 +144,7 @@
   <script>
     window.selectedGame = '<?= isset($data["game"]) ? htmlspecialchars($data["game"], ENT_QUOTES, "UTF-8") : "" ?>';
   </script>
-  <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/main-puzzle.js"></script>
 </body>
 
 </html>

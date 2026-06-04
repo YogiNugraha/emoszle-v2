@@ -1,0 +1,183 @@
+/* File: assets/css/components.css */
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 30px;
+  border-radius: 999px; /* Pill shape */
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none; /* Reset border */
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.15);
+  filter: saturate(105%);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--primary-color), white 20%);
+  outline-offset: 2px;
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 0 0 color-mix(in oklab, var(--primary-color), black 20%);
+}
+.btn-primary:hover {
+  box-shadow: 0 6px 0 0 color-mix(in oklab, var(--primary-color), black 20%);
+}
+.btn-primary:active {
+  box-shadow: 0 2px 0 0 color-mix(in oklab, var(--primary-color), black 20%);
+}
+
+.btn-secondary {
+  background-color: #78909c;
+  color: white;
+  box-shadow: 0 4px 0 0 #546e7a;
+}
+.btn-secondary:hover {
+  box-shadow: 0 6px 0 0 #546e7a;
+}
+.btn-secondary:active {
+  box-shadow: 0 2px 0 0 #546e7a;
+}
+
+.btn-warning {
+  background-color: var(--secondary-color);
+  color: #3b2f00;
+  box-shadow: 0 4px 0 0 #d3a008;
+}
+.btn-warning:hover {
+  box-shadow: 0 6px 0 0 #d3a008;
+}
+.btn-warning:active {
+  box-shadow: 0 2px 0 0 #d3a008;
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 0 0 #e27050;
+}
+.btn-accent:hover {
+  box-shadow: 0 6px 0 0 #e27050;
+}
+.btn-accent:active {
+  box-shadow: 0 2px 0 0 #e27050;
+}
+
+.btn-light {
+  background-color: var(--light-bg);
+  color: var(--font-color);
+  box-shadow: 0 4px 0 0 #bcaaa4;
+}
+.btn-light:hover {
+  box-shadow: 0 6px 0 0 #bcaaa4;
+}
+.btn-light:active {
+  box-shadow: 0 2px 0 0 #bcaaa4;
+}
+
+/* Floating Action Button (FAB) */
+.btn-fab {
+  position: fixed;
+  right: clamp(12px, 3vw, 20px);
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 9;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 28px;
+  padding: 0;
+  background-color: var(--accent-color);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 480px) {
+  .btn-fab {
+    width: 58px;
+    height: 58px;
+    font-size: 26px;
+    right: 12px;
+  }
+}
+
+/* --- Form Controls --- */
+select {
+  appearance: none;
+  border: 2px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--surface-color);
+  font: inherit;
+  font-weight: 700;
+  color: var(--font-color);
+  padding: 12px 18px;
+  padding-right: 40px;
+  min-height: 44px;
+  box-shadow: 0 4px 0 0 #bcaaa4;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.2s, border-color 0.2s;
+  width: 100%;
+}
+select:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--primary-color), white 20%);
+  outline-offset: 2px;
+}
+
+/* --- Modals / Cards --- */
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+@media (max-width: 480px) {
+  .card {
+    padding: 14px;
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.modal-content {
+  background: var(--surface-color);
+  padding: 28px;
+  border-radius: 22px;
+  text-align: center;
+  border: 5px solid var(--secondary-color);
+  box-shadow: 0 10px 0 0 #d3a008;
+  animation: fadeIn 0.45s ease;
+  max-width: min(90vw, 420px);
+}
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
