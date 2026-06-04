@@ -54,6 +54,7 @@
 .main-nav a.active {
   background-color: var(--primary-color, #20c997);
   color: white;
+  text-decoration: none;
 }
 
 .main-nav .btn-primary-nav {

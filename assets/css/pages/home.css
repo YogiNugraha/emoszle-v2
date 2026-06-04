@@ -44,26 +44,6 @@
 }
 
 /* Sections General */
-section {
-  padding: 80px 0;
-  position: relative;
-}
-.section-title {
-  text-align: center;
-  margin-bottom: 50px;
-}
-.section-title span {
-  color: var(--secondary-color);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-.section-title h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin: 10px 0 0 0;
-  color: var(--font-color);
-}
 
 /* Games Section */
 .games-section {
@@ -240,27 +220,7 @@ section {
   border: 5px solid white;
 }
 
-/* Wavy Dividers */
-.wavy-divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
-.wavy-divider.top {
-  top: 0;
-  bottom: auto;
-  transform: rotate(180deg);
-}
-.wavy-divider svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 120px;
-}
+/* Wavy Dividers Specifics */
 .module-section .wavy-divider,
 .video-section .wavy-divider,
 .about-section .wavy-divider {
@@ -279,7 +239,7 @@ section {
     text-align: center;
   }
   .hero-text, .about-text { text-align: center; }
-  .hero-text h1, .about-text h2, .section-title h2 { font-size: 2.2rem; }
+  .hero-text h1, .about-text h2 { font-size: 2.2rem; }
   
   .module-container {
     flex-direction: column;
