@@ -23,13 +23,39 @@ document.addEventListener("DOMContentLoaded", () => {
         finalMoves: document.getElementById("final-moves"),
         playAgainBtn: document.getElementById("play-again-btn"),
         muteBtn: document.getElementById("mute-btn"),
-        backBtn: document.getElementById("back-btn")
+        backBtn: document.getElementById("back-btn"),
+        mobileRefBtn: document.getElementById("mobile-ref-btn"),
+        refModal: document.getElementById("reference-modal"),
+        closeRefBtn: document.getElementById("close-ref-btn"),
+        modalRefImage: document.getElementById("modal-reference-image")
     };
 
     // Initialize Utilities
     const audioCtrl = new AudioController();
     const ttsCtrl = new TTSController(audioCtrl);
     const timer = new Timer(elements.timerDisplay);
+
+    // --- Reference Modal Logic ---
+    if (elements.mobileRefBtn && elements.refModal) {
+        elements.mobileRefBtn.addEventListener("click", () => {
+            elements.refModal.classList.remove("hidden");
+            elements.refModal.setAttribute("aria-hidden", "false");
+            audioCtrl.play('drop');
+        });
+
+        elements.closeRefBtn.addEventListener("click", () => {
+            elements.refModal.classList.add("hidden");
+            elements.refModal.setAttribute("aria-hidden", "true");
+            audioCtrl.play('drop');
+        });
+
+        // Close on outside click
+        elements.refModal.addEventListener("click", (e) => {
+            if (e.target === elements.refModal) {
+                elements.closeRefBtn.click();
+            }
+        });
+    }
 
     // Initialize Game Core
     const game = new PuzzleGame({
@@ -66,11 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (elements.winModal) elements.winModal.classList.remove("hidden");
     };
 
-    // Game Flow Functions
+    // --- Game Setup ---
     const setupGame = () => {
-        const diff = elements.difficultySelect.value;
-        const img = elements.imageSelect.value;
+        const diff = elements.difficultySelect?.value || "easy";
+        const img = elements.imageSelect?.value || "assets/img/engklek-kapal.png";
         
+        elements.referenceImage.src = img;
+        if (elements.modalRefImage) {
+            elements.modalRefImage.src = img;
+        }
+        
+        timer.stop();
         timer.reset();
         Storage.loadHighScore(diff, img, elements.highScoreDisplay);
         
@@ -106,7 +138,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setupGameDebounced = debounce(setupGame, 150);
     elements.difficultySelect?.addEventListener("change", setupGameDebounced);
-    elements.imageSelect?.addEventListener("change", setupGameDebounced);
+    
+    elements.imageSelect?.addEventListener("mouseenter", () => say("Pilih Gambar Puzzle"), { passive: true });
+    elements.imageSelect.addEventListener("change", (e) => {
+        elements.referenceImage.src = e.target.value;
+        if (elements.modalRefImage) {
+            elements.modalRefImage.src = e.target.value;
+        }
+        setupGameDebounced();
+    });
     
     // Recalculate board sizes on window resize
     window.addEventListener("resize", setupGameDebounced);
@@ -124,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         say(`Kesulitan diubah menjadi ${t}`);
     });
     
-    elements.imageSelect?.addEventListener("mouseenter", () => say("Pilih Gambar Puzzle"), { passive: true });
     elements.imageSelect?.addEventListener("change", () => {
         const t = elements.imageSelect.options[elements.imageSelect.selectedIndex]?.text || "";
         say(`Puzzle diubah menjadi ${t}`);

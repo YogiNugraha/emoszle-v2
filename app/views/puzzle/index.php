@@ -99,6 +99,7 @@
       </div>
 
       <button id="hint-btn" class="btn btn-fab" type="button" aria-label="Beri petunjuk satu potongan">💡</button>
+      <button id="mobile-ref-btn" class="btn btn-fab mobile-only-btn" type="button" aria-label="Lihat Gambar Acuan">🖼️</button>
     </section>
   </main>
   <div id="win-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="win-title">
@@ -108,6 +109,14 @@
       <p>Waktu: <strong id="final-time">00:00</strong></p>
       <p>Total Gerakan: <strong id="final-moves">0</strong></p>
       <button id="play-again-btn" class="btn btn-accent" type="button">Main Lagi</button>
+    </div>
+  </div>
+
+  <div id="reference-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="ref-title">
+    <div class="modal-content" tabindex="-1">
+      <h2 id="ref-title">Gambar Acuan</h2>
+      <img id="modal-reference-image" src="assets/img/engklek-kapal.png" alt="Gambar acuan puzzle" style="width: 100%; border-radius: 8px; margin-bottom: 16px;" />
+      <button id="close-ref-btn" class="btn btn-secondary" type="button">Tutup</button>
     </div>
   </div>
 
