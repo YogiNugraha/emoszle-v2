@@ -1,0 +1,17 @@
+# Aktifkan Mesin Rewrite
+RewriteEngine On
+
+RewriteBase /emoszle/
+
+# Hindari loop rewrite yang tak terbatas
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule .* - [L]
+
+# Aturan utama untuk menghilangkan .php
+# Kondisi 1: Jika URL yang diminta BUKAN file yang ada secara fisik (-f)
+RewriteCond %{REQUEST_FILENAME} !-f
+# Kondisi 2: Dan jika URL yang diminta BUKAN direktori yang ada secara fisik (-d)
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# MVC Routing
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]

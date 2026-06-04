@@ -1,0 +1,578 @@
+/* File: assets/css/homepage-style.css */
+
+/* 1. Impor Font dan Definisikan Palet Warna */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap");
+
+:root {
+  --primary-color: #20c997; /* Toska ceria */
+  --secondary-color: #ffc107; /* Kuning Madu */
+  --bg-color: #fff8e1; /* Krem lembut */
+  --font-color: #5d4037; /* Coklat tua */
+  --light-bg: #fff;
+  --font-family: "Nunito", sans-serif;
+}
+
+/* 2. Style Dasar & Kontainer */
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title span {
+  color: var(--secondary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 10px 0 0 0;
+  color: var(--font-color);
+}
+
+/* 3. Tombol Kustom (Bouncy Buttons) */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+}
+
+.btn-light {
+  background-color: var(--light-bg);
+  color: var(--font-color);
+}
+
+/* 4. Hero Section */
+.hero {
+  background-color: var(--bg-color);
+  padding-top: 100px;
+  padding-bottom: 120px; /* Ruang untuk wavy divider */
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  line-height: 1.2;
+  text-shadow: 3px 3px 0px var(--secondary-color);
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  color: var(--font-color);
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.hero-image {
+  flex: 1;
+}
+
+.hero-image img {
+  width: 100%;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 5. Games Section */
+.games-section {
+  background-color: var(--light-bg);
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.game-card {
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.game-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.game-card h3 {
+  padding: 20px;
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--font-color);
+}
+
+/* 6. About Section */
+.about-section {
+  background-color: var(--bg-color);
+  padding-top: 100px; /* Ruang untuk wavy divider di atas */
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.about-image {
+  flex: 1;
+}
+.about-image img {
+  width: 100%;
+}
+.about-text {
+  flex: 1;
+  text-align: left;
+}
+
+.about-text h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: var(--font-color);
+}
+
+.about-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-text li {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.emoji-bullet {
+  font-size: 24px;
+  margin-right: 15px;
+}
+
+/* GANTI SELURUH BLOK module LAMA ANDA DENGAN INI */
+
+/* 7. Call to Action (module) Section */
+.module-section {
+  background-color: var(--primary-color);
+  color: white;
+  padding-top: 120px;
+  padding-bottom: 140px; /* Beri ruang lebih untuk wavy divider di bawah */
+  overflow: hidden; /* Penting untuk menjaga layout tetap rapi */
+}
+
+.module-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.module-image {
+  flex: 0 0 300px; /* Lebar gambar diatur tetap 300px */
+  text-align: center;
+}
+
+.module-image img {
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: rotate(-4deg); /* Dibuat sedikit miring */
+  transition: all 0.3s ease-in-out;
+}
+
+.module-image img:hover {
+  transform: rotate(0deg) scale(1.05); /* Lurus dan membesar saat di-hover */
+}
+
+.module-text {
+  flex: 1; /* Teks akan mengisi sisa ruang */
+  text-align: left;
+}
+
+.module-text h3 {
+  color: white;
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.module-text p {
+  max-width: 500px;
+  margin: 20px 0 30px 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+/* Penyesuaian untuk Wavy Divider di module Section */
+.module-section .wavy-divider .shape-fill {
+  fill: var(
+    --bg-color
+  ); /* Warna krem, agar cocok dengan warna body di bawah footer */
+}
+
+/* ===== STYLE UNTUK NAVIGASI TAB VIDEO ===== */
+.video-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Agar rapi di layar kecil */
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.video-tab-btn {
+  padding: 10px 25px;
+  border-radius: 30px;
+  border: 2px solid var(--border-color);
+  font-size: 16px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  background-color: var(--light-bg);
+  color: var(--font-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.video-tab-btn:hover {
+  background-color: #f1f1f1;
+  border-color: #ccc;
+}
+
+/* Style untuk tombol tab yang sedang aktif */
+.video-tab-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ===== STYLE UNTUK SECTION VIDEO BARU ===== */
+.video-section {
+  background-color: var(--light-bg); /* Warna putih, untuk kontras */
+  padding-top: 140px; /* Ruang untuk wavy divider di atas */
+  padding-bottom: 140px; /* Ruang untuk wavy divider di bawah */
+}
+
+/* Trik CSS untuk membuat video YouTube responsif */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Rasio aspek 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 900px; /* Batas lebar video agar tidak terlalu besar di layar lebar */
+  margin: 0 auto; /* Pusatkan video wrapper */
+  border-radius: 20px; /* Sudut membulat yang lucu */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid white; /* Beri bingkai putih di dalam */
+}
+
+/* 8. Wavy Dividers (VERSI LENGKAP DAN SUDAH BENAR) */
+.wavy-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.wavy-divider.top {
+  top: 0;
+  bottom: auto;
+  transform: rotate(180deg);
+}
+
+.wavy-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 120px;
+}
+
+.about-section .wavy-divider {
+  transform: rotate(360deg);
+}
+.module-section .wavy-divider {
+  transform: rotate(360deg);
+}
+.video-section .wavy-divider {
+  transform: rotate(360deg);
+}
+.founder-section .wavy-divider {
+  transform: rotate(360deg);
+}
+
+/* --- BAGIAN YANG DIPERBAIKI --- */
+
+/* Mengatur warna isian (fill) ombaknya */
+.hero .wavy-divider .shape-fill {
+  fill: var(--light-bg); /* Warna putih, agar cocok dengan section games */
+}
+.about-section .wavy-divider .shape-fill {
+  fill: var(--light-bg); /* Warna krem, agar cocok dengan section about */
+}
+.video-section .wavy-divider .shape-fill {
+  fill: var(--bg-color); /* Section di bawah Video adalah CTA (toska) */
+}
+.page-hero .wavy-divider .shape-fill {
+  fill: var(--light-bg); /* Section di bawah Video adalah CTA (toska) */
+}
+.founder-section .wavy-divider .shape-fill {
+  fill: var(--light-bg); /* Section di bawah Video adalah CTA (toska) */
+}
+.module-section .wavy-divider .shape-fill {
+  fill: var(--light-bg); /* Section di bawah Video adalah CTA (toska) */
+}
+
+/* ------------------------------- */
+
+/* ======================================= */
+/* ===== HALAMAN TENTANG KAMI (ABOUT) ===== */
+/* ======================================= */
+
+.page-hero {
+  padding: 60px 0;
+  text-align: center;
+  background-color: var(--bg-color);
+}
+
+.page-hero h1 {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  text-shadow: 3px 3px 0 var(--secondary-color);
+}
+
+.page-hero p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+}
+
+.mission-section {
+  padding: 80px 0;
+  background-color: var(--light-bg);
+}
+
+.mission-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.mission-text {
+  flex: 1.2; /* Beri lebih banyak ruang untuk teks */
+  text-align: left;
+}
+
+.mission-text .lead {
+  font-size: 1.25rem;
+  font-weight: 700;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.mission-image {
+  flex: 1;
+}
+
+.mission-image img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.founder-section {
+  padding: 140px 0 80px 0;
+  background-color: var(--bg-color);
+  text-align: center;
+}
+
+/* STYLE BARU UNTUK GRID TIM */
+.team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; /* Penting agar responsif di layar kecil */
+}
+
+.profile-card {
+  background-color: var(--light-bg);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  flex: 1; /* Membuat setiap kartu mencoba mengisi ruang */
+  min-width: 280px; /* Lebar minimum sebelum turun baris */
+  max-width: 320px; /* Lebar maksimum setiap kartu */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.profile-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--light-bg);
+  box-shadow: 0 0 0 3px var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.profile-card h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--font-color);
+  margin-bottom: 5px;
+}
+
+.profile-card .profile-title {
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.profile-card .profile-bio {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* 9. Responsiveness */
+@media (max-width: 768px) {
+  .hero-container,
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text,
+  .about-text {
+    text-align: center;
+  }
+  .hero-text h1,
+  .about-text h2,
+  .section-title h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Penyesuaian untuk Tampilan Mobile */
+@media (max-width: 768px) {
+  .module-container {
+    flex-direction: column; /* Ubah jadi vertikal di layar kecil */
+    text-align: center;
+  }
+
+  .module-text {
+    text-align: center;
+  }
+
+  .module-image {
+    margin-bottom: 30px;
+  }
+}
+
+/* Penyesuaian untuk media query di halaman about */
+@media (max-width: 768px) {
+  .mission-container {
+    flex-direction: column-reverse; /* Gambar di atas, teks di bawah */
+  }
+  .mission-text {
+    text-align: center;
+  }
+  /* ===== TAMBAHKAN BLOK INI ===== */
+  .page-hero h1 {
+    font-size: 2.5rem; /* Perkecil ukuran font judul di layar kecil */
+  }
+  /* =============================== */
+}
