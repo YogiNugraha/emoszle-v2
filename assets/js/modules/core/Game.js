@@ -5,7 +5,12 @@ export class Game {
     }
 
     start() {
-        this.isGameActive = true;
+        if (!this.isGameActive) {
+            this.isGameActive = true;
+            if (typeof this.onGameStart === 'function') {
+                this.onGameStart();
+            }
+        }
     }
 
     reset() {

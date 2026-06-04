@@ -79,6 +79,7 @@
       <!-- Reference Image -->
       <div class="card reference-card" id="reference-container" aria-label="Gambar acuan puzzle">
         <h2 class="card-title">Gambar Acuan</h2>
+        <p id="reference-name" style="text-align: center; font-weight: bold; margin-bottom: 8px; color: var(--text-color);">Engklek Kapal</p>
         <img id="reference-image" src="assets/img/engklek-kapal.png" alt="Gambar acuan puzzle" loading="lazy" />
       </div>
     </aside>
@@ -115,6 +116,7 @@
   <div id="reference-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="ref-title">
     <div class="modal-content" tabindex="-1">
       <h2 id="ref-title">Gambar Acuan</h2>
+      <p id="modal-reference-name" style="text-align: center; font-weight: bold; margin-bottom: 8px; color: var(--text-color);">Engklek Kapal</p>
       <img id="modal-reference-image" src="assets/img/engklek-kapal.png" alt="Gambar acuan puzzle" style="width: 100%; border-radius: 8px; margin-bottom: 16px;" />
       <button id="close-ref-btn" class="btn btn-secondary" type="button">Tutup</button>
     </div>

@@ -321,6 +321,8 @@ export class PuzzleGame extends Game {
     }
 
     giveHint() {
+        this.start(); // Ensure game is active before calculating hints
+
         const misplaced = [];
         this.pieceContainer.querySelectorAll(".piece").forEach((p) => misplaced.push(p));
         

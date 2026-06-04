@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileRefBtn: document.getElementById("mobile-ref-btn"),
         refModal: document.getElementById("reference-modal"),
         closeRefBtn: document.getElementById("close-ref-btn"),
-        modalRefImage: document.getElementById("modal-reference-image")
+        modalRefImage: document.getElementById("modal-reference-image"),
+        referenceName: document.getElementById("reference-name"),
+        modalRefName: document.getElementById("modal-reference-name")
     };
 
     // Initialize Utilities
@@ -66,6 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Wire up events
+    game.onGameStart = () => {
+        if (!timer.isRunning) {
+            timer.start();
+        }
+    };
+
     game.onDropSuccess = () => {
         audioCtrl.playDropSound();
     };
@@ -96,10 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const setupGame = () => {
         const diff = elements.difficultySelect?.value || "easy";
         const img = elements.imageSelect?.value || "assets/img/engklek-kapal.png";
+        const imgName = elements.imageSelect?.options[elements.imageSelect.selectedIndex]?.text || "Engklek Kapal";
         
         elements.referenceImage.src = img;
+        if (elements.referenceName) {
+            elements.referenceName.textContent = imgName;
+        }
+
         if (elements.modalRefImage) {
             elements.modalRefImage.src = img;
+        }
+        if (elements.modalRefName) {
+            elements.modalRefName.textContent = imgName;
         }
         
         timer.stop();
@@ -109,11 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (elements.winModal) elements.winModal.classList.add("hidden");
         
         game.setup(diff, img);
-        timer.start();
-        
-        if (!audioCtrl.isMusicPlaying) {
-            audioCtrl.toggleMusic(elements.muteBtn);
-        }
     };
 
     // Debounce/Throttle Helpers (from original)
@@ -180,14 +191,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-
-        setTimeout(() => ttsCtrl.speak("Selamat datang di E-Moszle! Silakan pilih permainanmu."), 800);
+        // Setup game board (without sound)
         setupGame();
 
         if (elements.currentYear) {
             elements.currentYear.textContent = String(new Date().getFullYear());
         }
     };
+
+    // Handle Browser Autoplay Policy
+    let hasInteracted = false;
+    const unlockAudio = () => {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        
+        // Start background music
+        if (!audioCtrl.isMusicPlaying) {
+            audioCtrl.toggleMusic(elements.muteBtn);
+        }
+        
+        // Speak welcome message
+        setTimeout(() => ttsCtrl.speak("Selamat datang di E-Moszle! Silakan pilih permainanmu."), 200);
+        
+        // Clean up listeners
+        document.removeEventListener("click", unlockAudio);
+        document.removeEventListener("touchstart", unlockAudio);
+    };
+
+    document.addEventListener("click", unlockAudio, { once: true, capture: true });
+    document.addEventListener("touchstart", unlockAudio, { once: true, capture: true });
 
     // Run init
     init();
